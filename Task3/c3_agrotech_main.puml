@@ -18,7 +18,7 @@ System_Boundary(платформа, "Ферма Х - Цифровая платф
             Component(video_capture_module, "Захват и обработка видео от камеры для передачи в процессинг")
             Component(nn_detection_module, "Трекинг поведения животных")
             Component(communication_module_1, "Сервис коммуникаций")
-            Component(camera_health_check_module_1, "Сервис проверки камеры")
+            Component(camera_health_check_module_1, "Сервис проверки камеры","периодически опрашивает камеру")
         }
         Container(инфраструктура_фермы, "Мониторинг и управления  инфраструктурой", $tags="bgcolor"){
             Component(feed_module, "Управление кормушкой")
@@ -26,12 +26,11 @@ System_Boundary(платформа, "Ферма Х - Цифровая платф
             Component(water_quality_module, "Управление фильтрацией воды")
             Component(food_supply_module, "Управление запасами еды")            
             Component(communication_module_2, "Сервис коммуникаций")
-            Component(device_health_check_module, "Сервис проверки камеры")
+            Component(device_health_check_module, "Сервис проверки подключенных устройств","периодически опрашивает")
         }        
         Container(состояние_и_учет, "Состояния и учет животных", $tags="bgcolor"){
             Component(health_module, "Модуль состояния животных")
-            Component(water_module, "Управление поилками")
-            Component(water_quality_module, "Управление фильтрацией воды")
+            Component(counter_module, "Модуль пересчета животных")
             Component(communication_module_3, "Сервис коммуникаций")
             Component(camera_health_check_module_2, "Сервис проверки камеры")
         }
@@ -70,8 +69,6 @@ System_Boundary(платформа, "Ферма Х - Цифровая платф
     }
 }
 
-'сервис мониторинга_поведения_животных
-
 
 ' === Взаимосвязи ===
 Rel(директор, веб_портал, "Использует")
@@ -107,5 +104,23 @@ Rel(мониторинг_поведения_животных, модем, "Пе�
 Rel(состояние_и_учет, модем, "Передает данные", "mqtt")
 Rel(инфраструктура_фермы, модем, "Передает данные", "mqtt")
 
+'сервис мониторинга_поведения_животных
+Rel(video_capture_module, nn_detection_module, "передает картинки")
+Rel(nn_detection_module, communication_module_1, "передает данные","mqtt")
+Rel(camera_health_check_module_1, communication_module_1, "передает данные в случае проблем")
+Rel(communication_module_1, iot_шлюз, "передает данные","LoRWAN или модем")
 
+'инфраструктура_фермы
+Rel(feed_module, communication_module_2, "передает данные", "mqtt")
+Rel(water_module, communication_module_2, "передает данные", "mqtt")
+Rel(water_quality_module, communication_module_2, "передает данные", "mqtt")
+Rel(food_supply_module, communication_module_2, "передает данные", "mqtt")
+Rel(communication_module_2, iot_шлюз, "передает данные","LoRWAN или модем")
+
+'состояние_и_учет  
+ Rel(health_module, communication_module_3, "передает данные", "mqtt")
+ Rel(counter_module, communication_module_3, "передает данные", "mqtt")
+ Rel(camera_health_check_module_1, communication_module_3, "передает данные в случае проблем")
+ Rel(communication_module_3, iot_шлюз, "передает данные","LoRWAN или модем")
+ 
 @enduml
