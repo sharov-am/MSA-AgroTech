@@ -2,7 +2,6 @@
 
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
-!include <C4/C4_Component>
 
 AddSystemTag("bgcolor", $bgColor="#ed0fd3ff")
 
@@ -12,7 +11,7 @@ Person(аналитик, "Аналитик", "Работа с BI-системо�
 Person(фермер, "Фермер", "Управление фермой")
 
 System_Boundary(платформа, "Ферма Х - Цифровая платформа") {
-        Container_Boundary(edge_сервисы, "Edge сервисы для мониторинга животных" ) {
+        Container_Boundary(edge_сервисы, "Edge сервисы фермы" ) {
         
         Container(мониторинг_поведения_животных, "Мониторинг поведения животных", $tags="bgcolor") {
             Component(video_capture_module, "Захват и обработка видео от камеры для передачи в процессинг")
@@ -29,8 +28,8 @@ System_Boundary(платформа, "Ферма Х - Цифровая платф
             Component(device_health_check_module, "Сервис проверки подключенных устройств","периодически опрашивает")
         }        
         Container(состояние_и_учет, "Состояния и учет животных", $tags="bgcolor"){
-            Component(health_module, "Модуль состояния животных")
-            Component(counter_module, "Модуль пересчета животных")
+            Component(nn_health_module, "Модуль состояния животных")
+            Component(nn_counter_module, "Модуль пересчета животных")
             Component(communication_module_3, "Сервис коммуникаций")
             Component(camera_health_check_module_2, "Сервис проверки камеры")
         }
@@ -118,8 +117,8 @@ Rel(food_supply_module, communication_module_2, "передает данные",
 Rel(communication_module_2, iot_шлюз, "передает данные","LoRWAN или модем")
 
 'состояние_и_учет  
- Rel(health_module, communication_module_3, "передает данные", "mqtt")
- Rel(counter_module, communication_module_3, "передает данные", "mqtt")
+ Rel(nn_health_module, communication_module_3, "передает данные", "mqtt")
+ Rel(nn_counter_module, communication_module_3, "передает данные", "mqtt")
  Rel(camera_health_check_module_1, communication_module_3, "передает данные в случае проблем")
  Rel(communication_module_3, iot_шлюз, "передает данные","LoRWAN или модем")
  
