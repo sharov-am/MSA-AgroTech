@@ -71,7 +71,7 @@ Rel(фермер, мобильное_приложение, "Использует
 Rel(iot_шлюз, kafka, "Публикует данные", "Kafka Protocol")
 Rel(kafka, data_lake, "Сырые данные", "Kafka Connect+S3")
 Rel(kafka, dwh, "Трансформированные данные", "ETL+Airflow")
-
+Rel(модем, kafka, "Публикует данные")
 
 ' Аналитика
 Rel(data_lake, аналитика, "Доступ к сырым данным", "Spark")
@@ -104,8 +104,11 @@ Rel(communication_module_2, iot_шлюз, "передает данные","LoRWA
 Rel(video_capture_module, nn_detection_module, "передает картинки")
 Rel(nn_detection_module, communication_module_1, "передает данные","mqtt")
 Rel(camera_health_check_module_1, communication_module_1, "передает данные в случае проблем")
-Rel(communication_module_1, iot_шлюз, "передает данные","LoRWAN или модем")
 Rel(nn_health_module, communication_module_1, "передает данные", "mqtt")
 Rel(nn_counter_module, communication_module_1, "передает данные", "mqtt")
-Rel(communication_module_1, iot_шлюз, "передает данные","LoRWAN или модем")
+Rel(communication_module_1, kafka, "передает данные","LoRWAN")
+Rel(communication_module_2, kafka, "передает данные","LoRWAN")
+Rel(communication_module_1, модем, "передает данные")
+Rel(communication_module_2, модем, "передает данные")
+
 @enduml

@@ -107,19 +107,24 @@ Rel(инфраструктура_фермы, модем, "Передает да�
 Rel(video_capture_module, nn_detection_module, "передает картинки")
 Rel(nn_detection_module, communication_module_1, "передает данные","mqtt")
 Rel(camera_health_check_module_1, communication_module_1, "передает данные в случае проблем")
-Rel(communication_module_1, iot_шлюз, "передает данные","LoRWAN или модем")
+Rel(communication_module_1, kafka, "передает данные","LoRWAN")
+Rel(communication_module_1, модем, "передает данные")
 
 'инфраструктура_фермы
 Rel(feed_module, communication_module_2, "передает данные", "mqtt")
 Rel(water_module, communication_module_2, "передает данные", "mqtt")
 Rel(water_quality_module, communication_module_2, "передает данные", "mqtt")
 Rel(food_supply_module, communication_module_2, "передает данные", "mqtt")
-Rel(communication_module_2, iot_шлюз, "передает данные","LoRWAN или модем")
+Rel(communication_module_2, kafka, "передает данные", "LoRWAN")
+Rel(communication_module_2, модем, "передает данные")
+
 
 'состояние_и_учет  
- Rel(nn_health_module, communication_module_3, "передает данные", "mqtt")
- Rel(nn_counter_module, communication_module_3, "передает данные", "mqtt")
- Rel(camera_health_check_module_1, communication_module_3, "передает данные в случае проблем")
- Rel(communication_module_3, iot_шлюз, "передает данные","LoRWAN или модем")
+Rel(nn_health_module, communication_module_3, "передает данные", "mqtt")
+Rel(nn_counter_module, communication_module_3, "передает данные", "mqtt")
+Rel(camera_health_check_module_1, communication_module_3, "передает данные в случае проблем")
+Rel(communication_module_3, kafka, "передает данные", "LoRWAN")
+Rel(communication_module_3, модем, "передает данные")
+
  
 @enduml
