@@ -29,7 +29,7 @@ System_Boundary(платформа, "Ферма Х - Цифровая платф
                    
        }
 
-        Container(tenant_to_data_mapping, "Отображение тенанта к соотв. схема", "Tenant to schema db", "Строка подключения к соотв. схеме.")
+        Container(tenant_to_data_mapping, "Отображение тенанта к соотв. схема", "Tenant to schema db", "Строка подключения к соотв. схеме.", $tags="bgcolor")
         
         Container(веб_портал, "Веб-портал", "React", "Управление хозяйством")
         Container(мобильное_приложение, "Мобильное приложение", "Flutter", "Полевые работы")
